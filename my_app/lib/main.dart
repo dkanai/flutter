@@ -1,7 +1,30 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MainScreen());
+void main() => runApp(WordScreen());
+
+class WordScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "words list",
+      home: Scaffold(body: listView()),
+    );
+  }
+
+  ListView listView() {
+    var listView = ListView(
+      children: ['Dog', 'Cat'].map((animal) =>
+        Container(
+          child: Center(child: ListTile(title: Text(animal))),
+        )
+    ).toList(),
+    );
+
+
+    return listView;
+  }
+}
 
 class MainScreen extends StatelessWidget {
   @override
@@ -83,7 +106,7 @@ class RandomWordsWidgetState extends State<RandomWordsWidget> {
       MaterialPageRoute<void>(
         builder: (BuildContext context) {
           final Iterable<ListTile> tiles = _saved.map(
-            (WordPair pair) {
+                (WordPair pair) {
               return ListTile(
                 title: Text(
                   pair.asPascalCase,
