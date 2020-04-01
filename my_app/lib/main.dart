@@ -13,19 +13,19 @@ class MainScreen extends StatelessWidget {
           title: Text('Welcome to Flutter'),
         ),
         body: Center(
-          child: RandomWords(),
+          child: RandomWordsWidget(),
         ),
       ),
     );
   }
 }
 
-class RandomWords extends StatefulWidget {
+class RandomWordsWidget extends StatefulWidget {
   @override
-  RandomWordsState createState() => RandomWordsState();
+  RandomWordsWidgetState createState() => RandomWordsWidgetState();
 }
 
-class RandomWordsState extends State<RandomWords> {
+class RandomWordsWidgetState extends State<RandomWordsWidget> {
   final _suggestions = <WordPair>[];
   final Set<WordPair> _saved = Set<WordPair>();
 
