@@ -9,8 +9,7 @@ class AnimalListWidget extends StatefulWidget {
 }
 
 class AnimalListWidgetState extends State<AnimalListWidget> {
-  final _animals = ['Dog', 'Cat'];
-  bool _isTapped = false;
+  List<Animal> _animals = [new Animal('Dog'), new Animal('Cat')];
 
   @override
   Widget build(BuildContext context) {
@@ -21,26 +20,38 @@ class AnimalListWidgetState extends State<AnimalListWidget> {
     );
   }
 
-  Container animalRow(String animal, int index) {
-    String isTappedLabel = "";
-    if (_isTapped) {
-      isTappedLabel = " tapped!";
-    }
+  Container animalRow(Animal animal, int index) {
     return Container(
       child: Center(
         child: ListTile(
-          title: Text(animal + isTappedLabel),
+          title: Text(animal.label()),
           trailing: IconButton(
               icon: Icon(Icons.star),
               key: Key("list-icon-" + index.toString())),
           onTap: () {
             setState(() {
-              _isTapped = true;
+              animal.favorite = !animal.favorite;
             });
           },
         ),
       ),
     );
+  }
+}
+
+class Animal {
+  String name;
+  bool favorite = false;
+
+  Animal(String name) {
+    this.name = name;
+  }
+
+  String label() {
+    if (favorite) {
+      return name + " tapped!";
+    }
+    return name;
   }
 }
 
