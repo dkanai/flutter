@@ -13,11 +13,10 @@ void main() {
     expect(find.text('Dog'), findsOneWidget);
     expect(find.text('Cat'), findsOneWidget);
   });
-//  testWidgets('should update state when click star icon', (WidgetTester tester) async {
-//    await tester.pumpWidget(WordScreen());
-//    await tester.tap(find.byIcon(Icons.star));
-//    expect(tester.allStates.first, true);
-//  });
+  testWidgets('should update state when click star icon', (WidgetTester tester) async {
+    await tester.pumpWidget(WordScreen());
+    await tester.tap(find.byKey(Key("list-icon-0")));
+    await tester.pumpWidget(WordScreen());
+    expect(find.text("Dog tapped!"), findsOneWidget);
+  });
 }
-
-

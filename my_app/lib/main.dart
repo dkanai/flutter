@@ -3,26 +3,54 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(WordScreen());
 
+class AnimalListWidget extends StatefulWidget {
+  @override
+  AnimalListWidgetState createState() => AnimalListWidgetState();
+}
+
+class AnimalListWidgetState extends State<AnimalListWidget> {
+  final _animals = ['Dog', 'Cat'];
+  bool _isTapped = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: _animals
+          .map((animal) => animalRow(animal, _animals.indexOf(animal)))
+          .toList(),
+    );
+  }
+
+  Container animalRow(String animal, int index) {
+    String isTappedLabel = "";
+    if (_isTapped) {
+      isTappedLabel = " tapped!";
+    }
+    return Container(
+      child: Center(
+        child: ListTile(
+          title: Text(animal + isTappedLabel),
+          trailing: IconButton(
+              icon: Icon(Icons.star),
+              key: Key("list-icon-" + index.toString())),
+          onTap: () {
+            setState(() {
+              _isTapped = true;
+            });
+          },
+        ),
+      ),
+    );
+  }
+}
+
 class WordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "words list",
-      home: Scaffold(body: listView()),
+      home: Scaffold(body: AnimalListWidget()),
     );
-  }
-
-  ListView listView() {
-    var listView = ListView(
-      children: ['Dog', 'Cat'].map((animal) =>
-        Container(
-          child: Center(child: ListTile(title: Text(animal))),
-        )
-    ).toList(),
-    );
-
-
-    return listView;
   }
 }
 
@@ -106,7 +134,7 @@ class RandomWordsWidgetState extends State<RandomWordsWidget> {
       MaterialPageRoute<void>(
         builder: (BuildContext context) {
           final Iterable<ListTile> tiles = _saved.map(
-                (WordPair pair) {
+            (WordPair pair) {
               return ListTile(
                 title: Text(
                   pair.asPascalCase,
