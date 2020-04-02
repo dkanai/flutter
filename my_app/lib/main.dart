@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +13,7 @@ class AnimalListWidget extends StatefulWidget {
 
 class AnimalListWidgetState extends State<AnimalListWidget> {
   List<AnimalCard> _animals = [new AnimalCard('Dog'), new AnimalCard('Cat')];
-  String _storage = "";
+  String _animals_from_storage = "";
 
   @override
   void initState() {
@@ -31,7 +33,7 @@ class AnimalListWidgetState extends State<AnimalListWidget> {
   void loadStorage() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _storage = prefs.getString('counter') ?? '0';
+      _animals_from_storage = prefs.getString('animals');
     });
   }
 
@@ -39,7 +41,7 @@ class AnimalListWidgetState extends State<AnimalListWidget> {
     return Container(
       child: Center(
         child: ListTile(
-          title: Text(animal.label() + _storage),
+          title: Text(animal.label() + _animals_from_storage),
           trailing: IconButton(
               icon: Icon(Icons.star),
               key: Key("list-icon-" + index.toString())),
@@ -56,7 +58,6 @@ class AnimalListWidgetState extends State<AnimalListWidget> {
 
 class AnimalCard {
   String name;
-
   bool favorite = false;
 
   AnimalCard(String name) {
@@ -69,6 +70,12 @@ class AnimalCard {
     }
     return name;
   }
+
+  Map<String, dynamic> toJson() =>
+      {
+        'name': name,
+        'location': favorite,
+      };
 }
 
 class WordScreen extends StatelessWidget {
@@ -83,7 +90,8 @@ class WordScreen extends StatelessWidget {
 
   void setStorage() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('counter', '100');
+    var json = [new AnimalCard('Dog').toJson(), new AnimalCard('Cat').toJson()].toString();
+    prefs.setString('animals', json);
   }
 }
 
@@ -167,7 +175,7 @@ class RandomWordsWidgetState extends State<RandomWordsWidget> {
       MaterialPageRoute<void>(
         builder: (BuildContext context) {
           final Iterable<ListTile> tiles = _saved.map(
-            (WordPair pair) {
+                (WordPair pair) {
               return ListTile(
                 title: Text(
                   pair.asPascalCase,

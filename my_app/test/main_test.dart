@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_app/main.dart';
 
@@ -14,6 +15,13 @@ void main() {
     expect(find.text('Cat'), findsOneWidget);
   });
   testWidgets('should update state when click star icon', (WidgetTester tester) async {
+    const MethodChannel('plugins.flutter.io/shared_preferences').setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == 'getAll') {
+        return <String, dynamic>{};
+      }
+      return null;
+    });
+
     await tester.pumpWidget(WordScreen());
     await tester.tap(find.byKey(Key("list-icon-0")));
 
