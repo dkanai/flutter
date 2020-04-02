@@ -5,17 +5,22 @@ import 'animal.dart';
 import 'animal_repository.dart';
 
 class AnimalForm extends StatefulWidget {
+  AnimalRepository animalRepository;
+  AnimalForm(this.animalRepository);
+
   @override
   AnimalFormState createState() {
-    return AnimalFormState();
+    return AnimalFormState(this.animalRepository);
   }
 }
 
 class AnimalFormState extends State<AnimalForm> {
-  AnimalRepository animalRepository = new AnimalRepository();
+  AnimalRepository animalRepository;
   final _formKey = GlobalKey<FormState>();
   bool _favorite = false;
   String _name = "";
+
+  AnimalFormState(this.animalRepository);
 
   @override
   Widget build(BuildContext context) {
