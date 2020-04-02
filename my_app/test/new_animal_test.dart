@@ -12,6 +12,5 @@ import 'package:my_app/main.dart';
 void main() {
   testWidgets('', (WidgetTester tester) async {
     await tester.pumpWidget(NewAnimalScreen());
-    expect(find.text('New'), findsOneWidget);
   });
 }

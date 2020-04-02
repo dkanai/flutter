@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:my_app/animal/new_animal_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'animal.dart';
 import 'animals_widget.dart';
-import 'new_animal_screen.dart';
 
 class AnimalsScreen extends StatelessWidget {
   @override
@@ -23,12 +23,9 @@ class AnimalsScreen extends StatelessWidget {
           icon: Icon(Icons.add),
           backgroundColor: Colors.pink,
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return NewAnimalScreen();
-                },
-              ),
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NewAnimalScreen()),
             );
           },
         ),
