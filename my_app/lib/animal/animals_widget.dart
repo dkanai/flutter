@@ -13,6 +13,7 @@ class AnimalsWidgetState extends State<AnimalsWidget> {
   List<Animal> _animals = [];
   AnimalRepository animalRepository = new AnimalRepository();
 
+
   @override
   void initState() {
     super.initState();

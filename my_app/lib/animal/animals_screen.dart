@@ -13,18 +13,22 @@ class AnimalsScreen extends StatelessWidget {
           title: Text('Animals'),
         ),
         body: AnimalsWidget(),
-        floatingActionButton: FloatingActionButton.extended(
-          label: Text('New Animal'),
-          icon: Icon(Icons.add),
-          backgroundColor: Colors.pink,
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NewAnimalScreen()),
-            );
-          },
-        ),
+        floatingActionButton: floatingActionButton(context),
       ),
+    );
+  }
+
+  FloatingActionButton floatingActionButton(BuildContext context) {
+    return FloatingActionButton.extended(
+      label: Text('New Animal'),
+      icon: Icon(Icons.add),
+      backgroundColor: Colors.pink,
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NewAnimalScreen()),
+        );
+      },
     );
   }
 }

@@ -13,5 +13,3 @@ class NewAnimalScreen extends StatelessWidget {
         body: AnimalForm());
   }
 }
-
-
