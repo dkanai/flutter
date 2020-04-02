@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'animal.dart';
+import 'animal_repository.dart';
+
 class AnimalForm extends StatefulWidget {
   @override
   AnimalFormState createState() {
@@ -9,8 +12,10 @@ class AnimalForm extends StatefulWidget {
 }
 
 class AnimalFormState extends State<AnimalForm> {
+  AnimalRepository animalRepository = new AnimalRepository();
   final _formKey = GlobalKey<FormState>();
   bool _favorite = false;
+  String _name = "";
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +56,16 @@ class AnimalFormState extends State<AnimalForm> {
   void onPressSubmit(BuildContext context) {
     if (_formKey.currentState.validate() == false) return;
     Scaffold.of(context).showSnackBar(SnackBar(content: Text('Success')));
+    animalRepository.add(new Animal(_name, _favorite));
   }
 
   TextFormField nameField() {
     return TextFormField(
+      onChanged: (text) {
+        setState(() {
+          _name = text;
+        });
+      },
       validator: (value) {
         if (value.isEmpty) {
           return 'Please enter some text';
