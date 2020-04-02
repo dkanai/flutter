@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'animal.dart';
 import 'animals_widget.dart';
+import 'new_animal_screen.dart';
 
 class AnimalsScreen extends StatelessWidget {
   @override
@@ -38,16 +39,5 @@ class AnimalsScreen extends StatelessWidget {
   void setAnimalsForDebug() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('animals', jsonEncode([new Animal('Dog'), new Animal('Cat')]));
-  }
-}
-
-class NewAnimalScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("New Animal"),
-        ),
-        body: Text("New"));
   }
 }
