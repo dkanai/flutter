@@ -10,6 +10,7 @@ class AnimalForm extends StatefulWidget {
 
 class AnimalFormState extends State<AnimalForm> {
   final _formKey = GlobalKey<FormState>();
+  bool _favorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +19,33 @@ class AnimalFormState extends State<AnimalForm> {
       child: Column(
         children: <Widget>[
           nameField(),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: RaisedButton(
-              onPressed: () {
-                onPressSubmit(context);
-              },
-              child: Text('Submit'),
-            ),
-          ),
+          favoriteCheckBox(),
+          submitButton(context),
         ],
       ),
     );
+  }
+
+  Padding submitButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: RaisedButton(
+        onPressed: () {
+          onPressSubmit(context);
+        },
+        child: Text('Submit'),
+      ),
+    );
+  }
+
+  Checkbox favoriteCheckBox() {
+    return Checkbox(
+        value: _favorite,
+        onChanged: (newValue) {
+          setState(() {
+            _favorite = newValue;
+          });
+        });
   }
 
   void onPressSubmit(BuildContext context) {
