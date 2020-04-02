@@ -1,21 +1,13 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_app/animal/animal.dart';
 import 'package:my_app/animal/animals_screen.dart';
 
+import 'test_helper.dart';
+
 void main() {
   setUpAll(() {
-    const MethodChannel('plugins.flutter.io/shared_preferences').setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'getAll') {
-        return <String, dynamic>{
-          'flutter.animals': jsonEncode([new Animal('Dog'), new Animal('Cat')])
-        };
-      }
-      return null;
-    });
+    new TestHelper().mockGetSharedPreference([new Animal('Dog'), new Animal('Cat')]);
   });
   testWidgets('should see animal name', (WidgetTester tester) async {
     await tester.pumpWidget(AnimalsScreen());
