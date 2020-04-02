@@ -29,12 +29,11 @@ void main() {
     await tester.tap(find.byKey(Key("list-icon-0")));
 
     await tester.pumpWidget(AnimalsScreen());
-    expect(find.text("Dog tapped!"), findsOneWidget);
-    expect(find.text("Cat"), findsOneWidget);
+    expect(find.byIcon(Icons.star), findsOneWidget);
+    expect(find.byIcon(Icons.star_border), findsOneWidget);
     await tester.tap(find.byKey(Key("list-icon-0")));
 
     await tester.pumpWidget(AnimalsScreen());
-    expect(find.text("Dog"), findsOneWidget);
-    expect(find.text("Cat"), findsOneWidget);
+    expect(find.byIcon(Icons.star), findsNothing);
   });
 }

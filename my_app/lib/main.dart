@@ -13,8 +13,13 @@ class AnimalsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 //    setAnimals();
     return MaterialApp(
-      title: "words list",
-      home: Scaffold(body: AnimalsWidget()),
+      title: 'Animals',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Animals'),
+        ),
+        body: AnimalsWidget(),
+      ),
     );
   }
 
@@ -23,6 +28,3 @@ class AnimalsScreen extends StatelessWidget {
     prefs.setString('animals', jsonEncode([new Animal('Dog'), new Animal('Cat')]));
   }
 }
-
-
-

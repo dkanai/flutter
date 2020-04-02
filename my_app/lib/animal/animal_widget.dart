@@ -15,8 +15,8 @@ class AnimalWidget extends StatelessWidget {
     return Container(
       child: Center(
         child: ListTile(
-          title: Text(animal.label()),
-          trailing: IconButton(icon: Icon(Icons.star), key: Key("list-icon-" + index.toString())),
+          title: Text(animal.name, style: TextStyle(fontSize: 20)),
+          trailing: IconButton(icon: icon(), key: Key("list-icon-" + index.toString())),
           onTap: () {
             onTap(animal);
           },
@@ -24,4 +24,6 @@ class AnimalWidget extends StatelessWidget {
       ),
     );
   }
+
+  Icon icon() => animal.favorite ? Icon(Icons.star, color: Colors.yellowAccent) : Icon(Icons.star_border);
 }
