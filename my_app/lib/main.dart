@@ -6,9 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'animal/animal.dart';
 import 'animal/animals_widget.dart';
 
-void main() => runApp(AnimalListScreen());
+void main() => runApp(AnimalsScreen());
 
-class AnimalListScreen extends StatelessWidget {
+class AnimalsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 //    setAnimals();

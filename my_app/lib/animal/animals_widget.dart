@@ -17,24 +17,24 @@ class AnimalsWidgetState extends State<AnimalsWidget> {
   @override
   void initState() {
     super.initState();
-    loadStorage();
+    loadAnimal();
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: _animals.map((animal) => AnimalWidget(animal: animal, index: _animals.indexOf(animal), onTap: onTap)).toList(),
+      children: _animals.map((animal) => AnimalWidget(animal: animal, index: _animals.indexOf(animal), onTap: onTapAnimal)).toList(),
     );
   }
 
-  void onTap(Animal animal) {
+  void onTapAnimal(Animal animal) {
     setState(() {
       animal.favorite = !animal.favorite;
       updateAnimal();
     });
   }
 
-  void loadStorage() async {
+  void loadAnimal() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       List<dynamic> animals = json.decode(prefs.getString('animals'));
@@ -47,5 +47,3 @@ class AnimalsWidgetState extends State<AnimalsWidget> {
     prefs.setString('animals', jsonEncode(_animals));
   }
 }
-
-

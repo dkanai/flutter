@@ -18,22 +18,22 @@ void main() {
     });
   });
   testWidgets('should see animal name', (WidgetTester tester) async {
-    await tester.pumpWidget(AnimalListScreen());
-    await tester.pumpWidget(AnimalListScreen());
+    await tester.pumpWidget(AnimalsScreen());
+    await tester.pumpWidget(AnimalsScreen());
     expect(find.text('Dog'), findsOneWidget);
     expect(find.text('Cat'), findsOneWidget);
   });
   testWidgets('should update state when click star icon', (WidgetTester tester) async {
-    await tester.pumpWidget(AnimalListScreen());
-    await tester.pumpWidget(AnimalListScreen()); // loadStorge not wait build. call twice...
+    await tester.pumpWidget(AnimalsScreen());
+    await tester.pumpWidget(AnimalsScreen()); // loadStorge not wait build. call twice...
     await tester.tap(find.byKey(Key("list-icon-0")));
 
-    await tester.pumpWidget(AnimalListScreen());
+    await tester.pumpWidget(AnimalsScreen());
     expect(find.text("Dog tapped!"), findsOneWidget);
     expect(find.text("Cat"), findsOneWidget);
     await tester.tap(find.byKey(Key("list-icon-0")));
 
-    await tester.pumpWidget(AnimalListScreen());
+    await tester.pumpWidget(AnimalsScreen());
     expect(find.text("Dog"), findsOneWidget);
     expect(find.text("Cat"), findsOneWidget);
   });
