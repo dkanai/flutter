@@ -23,11 +23,11 @@ class AnimalsWidgetState extends State<AnimalsWidget> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: _animals.map((animal) => AnimalWidget(animal: animal, index: _animals.indexOf(animal), onTap: onTapAnimal)).toList(),
+      children: _animals.map((animal) => AnimalWidget(animal: animal, index: _animals.indexOf(animal), onTap: onTapFavorite)).toList(),
     );
   }
 
-  void onTapAnimal(Animal animal) {
+  void onTapFavorite(Animal animal) {
     setState(() {
       animal.favorite = !animal.favorite;
       updateAnimal();
