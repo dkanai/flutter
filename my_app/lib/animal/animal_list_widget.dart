@@ -5,12 +5,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'animal.dart';
 
-class AnimalListWidget extends StatefulWidget {
+class AnimalsWidget extends StatefulWidget {
   @override
-  AnimalListWidgetState createState() => AnimalListWidgetState();
+  AnimalsWidgetState createState() => AnimalsWidgetState();
 }
 
-class AnimalListWidgetState extends State<AnimalListWidget> {
+class AnimalsWidgetState extends State<AnimalsWidget> {
   List<Animal> _animals = [];
 
   @override
@@ -22,8 +22,15 @@ class AnimalListWidgetState extends State<AnimalListWidget> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: _animals.map((animal) => animalRow(animal, _animals.indexOf(animal))).toList(),
+      children: _animals.map((animal) => AnimalWidget(animal: animal, index: _animals.indexOf(animal), onTap: onTap)).toList(),
     );
+  }
+
+  void onTap(Animal animal) {
+    setState(() {
+      animal.favorite = !animal.favorite;
+      updateAnimal();
+    });
   }
 
   void loadStorage() async {
@@ -34,25 +41,31 @@ class AnimalListWidgetState extends State<AnimalListWidget> {
     });
   }
 
-  Container animalRow(Animal animal, int index) {
+  void updateAnimal() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('animals', jsonEncode(_animals));
+  }
+}
+
+class AnimalWidget extends StatelessWidget {
+  AnimalWidget({Key key, this.animal, this.index, this.onTap}) : super(key: key);
+
+  final Animal animal;
+  final int index;
+  final void Function(Animal animal) onTap;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       child: Center(
         child: ListTile(
           title: Text(animal.label()),
           trailing: IconButton(icon: Icon(Icons.star), key: Key("list-icon-" + index.toString())),
           onTap: () {
-            setState(() {
-              animal.favorite = !animal.favorite;
-              updateAnimal();
-            });
+            onTap(animal);
           },
         ),
       ),
     );
-  }
-
-  void updateAnimal() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('animals', jsonEncode(_animals));
   }
 }

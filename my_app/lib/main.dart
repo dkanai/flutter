@@ -14,7 +14,7 @@ class AnimalListScreen extends StatelessWidget {
 //    setAnimals();
     return MaterialApp(
       title: "words list",
-      home: Scaffold(body: AnimalListWidget()),
+      home: Scaffold(body: AnimalsWidget()),
     );
   }
 
