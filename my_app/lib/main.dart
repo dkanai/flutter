@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'animal/animal.dart';
-import 'animal/animal_list_widget.dart';
+import 'animal/animals_widget.dart';
 
 void main() => runApp(AnimalListScreen());
 
