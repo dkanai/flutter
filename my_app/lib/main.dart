@@ -1,5 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(WordScreen());
 
@@ -9,10 +10,12 @@ class AnimalListWidget extends StatefulWidget {
 }
 
 class AnimalListWidgetState extends State<AnimalListWidget> {
-  List<Animal> _animals = [new Animal('Dog'), new Animal('Cat')];
+  List<AnimalCard> _animals = [new AnimalCard('Dog'), new AnimalCard('Cat')];
 
   @override
   Widget build(BuildContext context) {
+    storage();
+
     return ListView(
       children: _animals
           .map((animal) => animalRow(animal, _animals.indexOf(animal)))
@@ -20,7 +23,7 @@ class AnimalListWidgetState extends State<AnimalListWidget> {
     );
   }
 
-  Container animalRow(Animal animal, int index) {
+  Container animalRow(AnimalCard animal, int index) {
     return Container(
       child: Center(
         child: ListTile(
@@ -37,13 +40,18 @@ class AnimalListWidgetState extends State<AnimalListWidget> {
       ),
     );
   }
+
+  void storage()  async{
+    final prefs = await SharedPreferences.getInstance();
+  }
+
 }
 
-class Animal {
+class AnimalCard {
   String name;
   bool favorite = false;
 
-  Animal(String name) {
+  AnimalCard(String name) {
     this.name = name;
   }
 
