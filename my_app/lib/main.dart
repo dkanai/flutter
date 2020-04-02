@@ -11,11 +11,16 @@ class AnimalListWidget extends StatefulWidget {
 
 class AnimalListWidgetState extends State<AnimalListWidget> {
   List<AnimalCard> _animals = [new AnimalCard('Dog'), new AnimalCard('Cat')];
+  String _storage = "";
+
+  @override
+  void initState() {
+    super.initState();
+    loadStorage();
+  }
 
   @override
   Widget build(BuildContext context) {
-    storage();
-
     return ListView(
       children: _animals
           .map((animal) => animalRow(animal, _animals.indexOf(animal)))
@@ -23,11 +28,18 @@ class AnimalListWidgetState extends State<AnimalListWidget> {
     );
   }
 
+  void loadStorage() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _storage = prefs.getString('counter') ?? '0';
+    });
+  }
+
   Container animalRow(AnimalCard animal, int index) {
     return Container(
       child: Center(
         child: ListTile(
-          title: Text(animal.label()),
+          title: Text(animal.label() + _storage),
           trailing: IconButton(
               icon: Icon(Icons.star),
               key: Key("list-icon-" + index.toString())),
@@ -40,15 +52,11 @@ class AnimalListWidgetState extends State<AnimalListWidget> {
       ),
     );
   }
-
-  void storage()  async{
-    final prefs = await SharedPreferences.getInstance();
-  }
-
 }
 
 class AnimalCard {
   String name;
+
   bool favorite = false;
 
   AnimalCard(String name) {
@@ -66,10 +74,16 @@ class AnimalCard {
 class WordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    setStorage();
     return MaterialApp(
       title: "words list",
       home: Scaffold(body: AnimalListWidget()),
     );
+  }
+
+  void setStorage() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('counter', '100');
   }
 }
 
