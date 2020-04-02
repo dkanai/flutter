@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:my_app/animal/animal.dart';
+import 'package:my_app/animal/animals_screen.dart';
 import 'package:my_app/main.dart';
 
 void main() {
@@ -25,14 +27,14 @@ void main() {
   });
   testWidgets('should update state when click star icon', (WidgetTester tester) async {
     await tester.pumpWidget(AnimalsScreen());
-    await tester.pumpWidget(AnimalsScreen()); // loadStorge not wait build. call twice...
+    await tester.pumpWidget(AnimalsScreen()); // load storage not wait build. call twice...
     await tester.tap(find.byKey(Key("list-icon-0")));
 
     await tester.pumpWidget(AnimalsScreen());
     expect(find.byIcon(Icons.star), findsOneWidget);
     expect(find.byIcon(Icons.star_border), findsOneWidget);
-    await tester.tap(find.byKey(Key("list-icon-0")));
 
+    await tester.tap(find.byKey(Key("list-icon-0")));
     await tester.pumpWidget(AnimalsScreen());
     expect(find.byIcon(Icons.star), findsNothing);
   });
