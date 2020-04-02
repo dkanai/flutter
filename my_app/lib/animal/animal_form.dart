@@ -16,29 +16,35 @@ class AnimalFormState extends State<AnimalForm> {
     return Form(
       key: _formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          TextFormField(
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
-          ),
+          nameField(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: RaisedButton(
               onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Processing Data')));
-                }
+                onPressSubmit(context);
               },
               child: Text('Submit'),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  void onPressSubmit(BuildContext context) {
+    if (_formKey.currentState.validate() == false) return;
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text('Success')));
+  }
+
+  TextFormField nameField() {
+    return TextFormField(
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Please enter some text';
+        }
+        return null;
+      },
     );
   }
 }
