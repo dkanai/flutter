@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'animal.dart';
+import 'animal_repository.dart';
 import 'animal_widget.dart';
 
 class AnimalsWidget extends StatefulWidget {
@@ -13,6 +11,7 @@ class AnimalsWidget extends StatefulWidget {
 
 class AnimalsWidgetState extends State<AnimalsWidget> {
   List<Animal> _animals = [];
+  AnimalRepository animalRepository = new AnimalRepository();
 
   @override
   void initState() {
@@ -30,20 +29,14 @@ class AnimalsWidgetState extends State<AnimalsWidget> {
   void onTapFavorite(Animal animal) {
     setState(() {
       animal.favorite = !animal.favorite;
-      updateAnimal();
+      animalRepository.update(_animals);
     });
   }
 
   void loadAnimal() async {
-    final prefs = await SharedPreferences.getInstance();
+    List<Animal> animals = await animalRepository.load();
     setState(() {
-      List<dynamic> animals = json.decode(prefs.getString('animals'));
-      _animals = animals.map((animal) => new Animal(animal['name'], animal['favorite'])).toList();
+      _animals = animals;
     });
-  }
-
-  void updateAnimal() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('animals', jsonEncode(_animals));
   }
 }
