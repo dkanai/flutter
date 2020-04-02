@@ -12,8 +12,7 @@ class AnimalListWidget extends StatefulWidget {
 }
 
 class AnimalListWidgetState extends State<AnimalListWidget> {
-  List<AnimalCard> _animals = [new AnimalCard('Dog'), new AnimalCard('Cat')];
-  String _animals_from_storage = "";
+  List<AnimalCard> _animals = [];
 
   @override
   void initState() {
@@ -24,16 +23,15 @@ class AnimalListWidgetState extends State<AnimalListWidget> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: _animals
-          .map((animal) => animalRow(animal, _animals.indexOf(animal)))
-          .toList(),
+      children: _animals.map((animal) => animalRow(animal, _animals.indexOf(animal))).toList(),
     );
   }
 
   void loadStorage() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _animals_from_storage = prefs.getString('animals');
+      List<dynamic> animals = json.decode(prefs.getString('animals'));
+      _animals = animals.map((animal) => new AnimalCard(animal['name'], animal['favorite'])).toList();
     });
   }
 
@@ -41,27 +39,32 @@ class AnimalListWidgetState extends State<AnimalListWidget> {
     return Container(
       child: Center(
         child: ListTile(
-          title: Text(animal.label() + _animals_from_storage),
-          trailing: IconButton(
-              icon: Icon(Icons.star),
-              key: Key("list-icon-" + index.toString())),
+          title: Text(animal.label()),
+          trailing: IconButton(icon: Icon(Icons.star), key: Key("list-icon-" + index.toString())),
           onTap: () {
             setState(() {
               animal.favorite = !animal.favorite;
+              updateAnimal();
             });
           },
         ),
       ),
     );
   }
+
+  void updateAnimal() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('animals', jsonEncode(_animals));
+  }
 }
 
 class AnimalCard {
   String name;
-  bool favorite = false;
+  bool favorite;
 
-  AnimalCard(String name) {
+  AnimalCard(String name, [favorite]) {
     this.name = name;
+    this.favorite = favorite ?? false;
   }
 
   String label() {
@@ -74,24 +77,23 @@ class AnimalCard {
   Map<String, dynamic> toJson() =>
       {
         'name': name,
-        'location': favorite,
+        'favorite': favorite,
       };
 }
 
 class WordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    setStorage();
+//    setAnimals();
     return MaterialApp(
       title: "words list",
       home: Scaffold(body: AnimalListWidget()),
     );
   }
 
-  void setStorage() async {
+  void setAnimalsForDebug() async {
     final prefs = await SharedPreferences.getInstance();
-    var json = [new AnimalCard('Dog').toJson(), new AnimalCard('Cat').toJson()].toString();
-    prefs.setString('animals', json);
+    prefs.setString('animals', jsonEncode([new AnimalCard('Dog'), new AnimalCard('Cat')]));
   }
 }
 
