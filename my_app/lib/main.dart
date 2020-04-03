@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 
-import 'animal/screen/animals_screen.dart';
+void main() => runApp(TodoApp([]));
 
-void main() => runApp(AnimalApp());
+class TodoApp extends StatelessWidget {
+  List<String> todos;
 
-class AnimalApp extends StatelessWidget {
+  TodoApp(this.todos);
+
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(home: AnimalsScreen());
+    var widgets;
+    if (todos.length == 0) {
+      widgets = [Text('There is no todo')];
+    } else {
+      widgets = todos.map((todo) => Text(todo)).toList();
+    }
+    return MaterialApp(
+        home: ListView(
+      children: widgets,
+    ));
   }
 }
