@@ -22,5 +22,8 @@ void main() {
     await tester.tap(find.byKey(Key('clean toilet')));
     await tester.pump();
     expect(find.byIcon(Icons.check_circle), findsOneWidget);
+    await tester.tap(find.byKey(Key('clean toilet')));
+    await tester.pump();
+    expect(find.byIcon(Icons.check_circle_outline), findsOneWidget);
   });
 }
