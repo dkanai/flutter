@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_app/animal/animal.dart';
-import 'package:my_app/animal/animals_screen.dart';
+import 'package:my_app/animal/screen/animals_screen.dart';
 
 import 'test_helper.dart';
 

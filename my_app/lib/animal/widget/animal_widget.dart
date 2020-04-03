@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'animal.dart';
+import '../animal.dart';
 
 class AnimalWidget extends StatelessWidget {
   AnimalWidget({Key key, this.animal, this.index, this.onTap}) : super(key: key);

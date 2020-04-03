@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'animal/animals_screen.dart';
+import 'animal/screen/animals_screen.dart';
 
 void main() => runApp(AnimalApp());
 

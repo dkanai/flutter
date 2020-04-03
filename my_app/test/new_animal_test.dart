@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_app/animal/animal.dart';
-import 'package:my_app/animal/animal_form.dart';
+import 'package:my_app/animal/widget/animal_form.dart';
 import 'package:my_app/animal/animal_repository.dart';
-import 'package:my_app/animal/new_animal_screen.dart';
+import 'package:my_app/animal/screen/new_animal_screen.dart';
 
 import 'test_helper.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/animal/new_animal_screen.dart';
+import 'package:my_app/animal/screen/new_animal_screen.dart';
 
-import 'animals_widget.dart';
+import '../widget/animals_widget.dart';
 
 class AnimalsScreen extends StatelessWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'animal.dart';
-import 'animal_repository.dart';
+import '../animal.dart';
+import '../animal_repository.dart';
 import 'animal_widget.dart';
 
 class AnimalsWidget extends StatefulWidget {

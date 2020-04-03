@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'animal.dart';
-import 'animal_repository.dart';
+import '../animal.dart';
+import '../animal_repository.dart';
 
 class AnimalForm extends StatefulWidget {
   AnimalRepository animalRepository;
