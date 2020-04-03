@@ -14,6 +14,10 @@ class AnimalRepository {
 
   Future<List> load() async {
     final prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey(key) == false) {
+      List<Animal> empty = [];
+      return empty;
+    }
     List<dynamic> animals = json.decode(prefs.getString(key));
     return animals.map((animal) => new Animal(animal['name'], animal['favorite'])).toList();
   }
