@@ -6,6 +6,7 @@ import '../animal_repository.dart';
 
 class AnimalForm extends StatefulWidget {
   AnimalRepository animalRepository;
+
   AnimalForm(this.animalRepository);
 
   @override
@@ -50,6 +51,7 @@ class AnimalFormState extends State<AnimalForm> {
 
   Checkbox favoriteCheckBox() {
     return Checkbox(
+        key: Key("favorite"),
         value: _favorite,
         onChanged: (newValue) {
           setState(() {
@@ -62,6 +64,7 @@ class AnimalFormState extends State<AnimalForm> {
     if (_formKey.currentState.validate() == false) return;
     Scaffold.of(context).showSnackBar(SnackBar(content: Text('Success')));
     animalRepository.add(new Animal(_name, _favorite));
+    Navigator.pop(context, 'Yep!');
   }
 
   TextFormField nameField() {

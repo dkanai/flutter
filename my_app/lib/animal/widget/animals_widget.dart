@@ -27,7 +27,7 @@ class AnimalsWidgetState extends State<AnimalsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if(_animals.length == 0){
+    if (_animals.length == 0) {
       return Text("There is no animal");
     }
     return ListView(

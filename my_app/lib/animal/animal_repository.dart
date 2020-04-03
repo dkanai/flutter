@@ -24,7 +24,12 @@ class AnimalRepository {
 
   void add(Animal animal) async {
     final prefs = await SharedPreferences.getInstance();
-    List<dynamic> animals = json.decode(prefs.getString(key));
+    List<dynamic> animals;
+    if (prefs.containsKey(key)) {
+      animals = json.decode(prefs.getString(key));
+    } else {
+      animals = [];
+    }
     animals.add(animal);
     prefs.setString(key, jsonEncode(animals));
   }

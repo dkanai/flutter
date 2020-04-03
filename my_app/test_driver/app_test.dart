@@ -1,9 +1,9 @@
-import 'package:flutter_driver/flutter_driver.dart';
-import 'package:test/test.dart';
+import 'package:flutter_driver/flutter_driver.dart' ; import 'package:test/test.dart';
+
+
 
 void main() {
   group('Animal app', () {
-
     FlutterDriver driver;
 
     setUpAll(() async {
@@ -16,10 +16,13 @@ void main() {
       }
     });
 
-    test('starts at 0', () async {
+    test('add new animal', () async {
       await driver.tap(find.byValueKey('new_animal_button'));
-//      expect(await driver.getText(counterTextFinder), "0");
+      await driver.tap(find.byType('TextFormField'));
+      await driver.enterText('Big Dog');
+//      await driver.tap(find.byValueKey(Key('favorite')));
+      await driver.tap(find.byType('RaisedButton'));
+//      expect(await driver.getText(xxx), "Big Dog");
     });
-
   });
 }
