@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/todo/todo.dart';
+import 'package:my_app/todo/todo_repository.dart';
 
 class TodosWidget extends StatefulWidget {
-  List<String> todos;
+  TodoRepository todoRepository;
 
-  TodosWidget(this.todos);
+  TodosWidget(this.todoRepository);
 
   @override
   State<StatefulWidget> createState() {
-    return TodosState(todos);
+    return TodosState(todoRepository);
   }
 }
 
 class TodosState extends State<TodosWidget> {
   List<Todo> _todos;
+  TodoRepository todoRepository;
 
-  TodosState(todos) {
-    _todos = todos.map((todo) => new Todo(todo)).toList().cast<Todo>();
+  TodosState(this.todoRepository);
+
+  @override
+  void initState() {
+    _todos = todoRepository.all();
   }
 
   @override
