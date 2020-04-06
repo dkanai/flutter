@@ -1,6 +1,5 @@
-import 'package:flutter_driver/flutter_driver.dart' ; import 'package:test/test.dart';
-
-
+import 'package:flutter_driver/flutter_driver.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('', () {
@@ -16,15 +15,19 @@ void main() {
       }
     });
 
-    test('xxx', () async {
-      // visit todo list page
-      expect(await driver.getText(find.byValueKey('init')), "There is no todo");
-//      await driver.tap(find.byType())
-      // click new todo button
-      // visit new todo page
+    test('add new todo journy', () async {
+      await containText(driver, "dummy toilet");
+      await driver.tap(find.byType("RaisedButton"));
+      await containText(driver, "New Todo");
       // fill in todo title
       // click submit
       // see new todo in list page
     });
+  });
+}
+
+Future containText(FlutterDriver driver, String text) async {
+  await driver.waitFor(find.text(text), timeout: Duration(seconds: 3)).catchError((e) {
+    throw StateError("Assertion Error: couldn't find text '" + text + "' in screen.");
   });
 }

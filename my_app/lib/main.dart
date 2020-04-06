@@ -7,9 +7,9 @@ void main() => runApp(TodoApp());
 class TodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Scaffold(
-        body: TodosWidget(new TodoRepository()),
-    )
-    );
+    return MaterialApp(
+        home: Scaffold(
+      body: TodosWidget(new TodoRepository()),
+    ));
   }
 }

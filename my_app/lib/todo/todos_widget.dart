@@ -28,11 +28,20 @@ class TodosState extends State<TodosWidget> {
   Widget build(BuildContext context) {
     if (_todos.length == 0) return Text('There is no todo');
     return ListView(
-      children: _todos.map((todo) => listTile(todo)).toList(),
+      children: _todos.map((todo) => listTile(todo)).toList() +
+          [
+            RaisedButton(
+                child: Text("add new todo"),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute<void>(builder: (BuildContext context) {
+                    return NewTodoScreen();
+                  }));
+                })
+          ],
     );
   }
 
-  ListTile listTile(Todo todo) {
+  Widget listTile(Todo todo) {
     return ListTile(
         key: Key(todo.title),
         title: Text(todo.title),
@@ -45,4 +54,36 @@ class TodosState extends State<TodosWidget> {
   }
 
   Icon icon(Todo todo) => todo.complete ? Icon(Icons.check_circle, color: Colors.green) : Icon(Icons.check_circle_outline);
+}
+
+class NewTodoScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("New Todo")),
+      body: TodoForm(),
+    );
+  }
+}
+
+class TodoForm extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return TodoFormState();
+  }
+}
+
+class TodoFormState extends State<TodoForm> {
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            decoration: InputDecoration(labelText: "title"),
+          )
+        ],
+      ),
+    );
+  }
 }
