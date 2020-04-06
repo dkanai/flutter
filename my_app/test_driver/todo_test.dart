@@ -19,6 +19,7 @@ void main() {
     test('xxx', () async {
       // visit todo list page
       expect(await driver.getText(find.byValueKey('init')), "There is no todo");
+//      await driver.tap(find.byType())
       // click new todo button
       // visit new todo page
       // fill in todo title
